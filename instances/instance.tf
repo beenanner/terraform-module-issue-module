@@ -6,6 +6,8 @@ variable "zones" {
 
 variable "instance_count" {}
 
+variable "instance_type" {}
+
 variable "image" {}
 
 variable "subnetwork" {}
@@ -15,7 +17,7 @@ variable "subnetwork_project" {}
 resource "google_compute_instance" "instance" {
   name         = "${var.name}-instance-${count.index+1}"
   count        = "${var.instance_count}"
-  machine_type = ""
+  machine_type = "${var.instance_type}"
   zone         = "${element(var.zones, count.index)}"
 
   provisioner "remote-exec" {
